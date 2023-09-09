@@ -101,7 +101,7 @@
       {
           var decoded_token = jwt_decode(token);
           
-          axios.get("https://gameportalapi.onrender.com/user/get/"+decoded_token.user_id, {},
+          axios.get("https://gameportalapi.onrender.com/user/get/"+decoded_token.userId, {},
           {
             headers: {
               'Access-Control-Allow-Origin': '*',
