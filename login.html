@@ -134,7 +134,7 @@
         )
         .then(response => {
             localStorage.setItem("token", response.data.data.token);
-            window.location.href = "admin.html";
+            window.location.href = "user.html";
         })
         .catch(error => {
             console.log(error.response.data);

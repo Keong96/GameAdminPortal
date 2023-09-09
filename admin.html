@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.6/dist/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>  
+    <style>
+        .square-button {
+            width: 200px;
+            height: 200px;
+            border-radius: 15px;
+            margin: 10px;
+        }
+        .square-button img {
+            max-width: 60px;
+            max-height: 60px;
+            margin-bottom: 50px;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container text-center mt-5">
+        <div id="dashboard_header">
+            <nav class="navbar navbar-expand-lg bg-light">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse col-md-11" id="navbarNav">
+                  <ul class="navbar-nav">
+                    <li class="nav-item active">
+                      <span id="welcome_message"></span>
+                    </li>
+                    <li class="nav-item">
+                        <span id="user_panel"></span>
+                      </li>
+                  
+                  </ul>
+                </div>
+                <div class="col-md-1">
+                    <a class="nav-link" href="#" onclick="Logout()">Logout</a>
+                </div>
+              </nav>
+        </div>
+        <div id="dashboard_content">
+            <div class="row">
+                <div class="col-md-12 text-center" style="margin-top:25px">
+                    <h1>Admin Panel</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <button class="btn btn-light square-button" onclick="window.location='./rocket_game_setting.html'">
+                        <img src="images/1.png">
+                        <p>Rocket Game Setting</p>
+                    </button>
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-light square-button" onclick="">
+                        <img src="images/2.png">
+                        <p>Color Dice Game Setting</p>
+                    </button>
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-light square-button" onclick="">
+                        <img src="images/3.png">
+                        <p>Mine Gold Game Setting</p>
+                    </button>
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-light square-button" onclick="">
+                        <img src="images/4.png">
+                        <p>Dream Catcher Wheel Game Setting</p>
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <button class="btn btn-light square-button" onclick="">
+                        <img src="images/5.jpg">
+                        <p>Plinko Game Setting</p>
+                    </button>
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-light square-button" onclick="">
+                        <img src="images/6.png">
+                        <p>Block Puzzle Game Setting</p>
+                    </button>
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-light square-button" onclick="">
+                        <img src="images/7.png">
+                        <p>Angry Bird Game Setting</p>
+                    </button>
+                </div>
+                <div class="col-md-3">
+                    <button class="btn btn-light square-button" onclick="">
+                        <img src="images/8.png">
+                        <p>PAC Man Game Setting</p>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    const welcome_message = document.getElementById("welcome_message");
+    const user_panel = document.getElementById("user_panel");
+    const token = localStorage.getItem('token');
+    if (token)
+    {
+        var decoded_token = jwt_decode(token);
+        if(decoded_token.user_type != 0 && decoded_token.user_type != 1)
+        {
+            window.stop();
+            localStorage.removeItem("token");
+            window.location.href = 'login.html';
+        }
+
+        if (decoded_token.exp < Math.floor(Date.now()/1000))
+        {
+            window.stop();
+            localStorage.removeItem("token");
+            window.location.href = 'login.html';
+        }
+
+        welcome_message.innerHTML = '<a class="nav-link" href="javascript:void(0)">'+decoded_token.username+'</a>';
+
+        user_panel.innerHTML = '<a class="nav-link" href="user.html">User Panel</a>';
+    }
+    else
+    {
+        window.stop();
+        window.location.href = 'login.html';
+    }
+
+    function Logout()
+    {
+        localStorage.removeItem('token');
+        window.location.href = 'login.html';
+    }
+
+</script>
+</html>
