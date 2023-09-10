@@ -92,7 +92,7 @@
                     {headers: { authorization: `Bearer ${token}` }})
                     .then(response => {
                         var data = `${decoded_token.userId}, ${response.data.username}, ${response.data.credit}`;
-                        console.log(data);
+
                         unityInstance.SendMessage('GameManager', 'GetUserInfo', data);
                     })
                     .catch(error => {
