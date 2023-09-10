@@ -102,7 +102,7 @@
           var decoded_token = jwt_decode(token);
           
           axios.get("https://gameportalapi.onrender.com/user/get/"+decoded_token.userId,
-          {headers: { Authorization: `Bearer ${token}` }})
+          {headers: { authorization: `Bearer ${token}` }})
           .then(response => {
             var uid = response.data.rows[0].id;
             var username = response.data.rows[0].username;
