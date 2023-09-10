@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Aeroplane</title>
+    <title>Rocket</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -91,7 +91,9 @@
                 axios.get("https://gameportalapi.onrender.com/user/get/"+decoded_token.userId,
                     {headers: { authorization: `Bearer ${token}` }})
                     .then(response => {
-                      unityInstance.SendMessage('GameManager', 'GetUserInfo', decoded_token.userId, response.data.username, response.data.credit);
+                        var data = `${decoded_token.userId}, ${response.data.username}, ${response.data.credit}`;
+
+                        unityInstance.SendMessage('GameManager', 'GetUserInfo', data);
                     })
                     .catch(error => {
                         console.log(error);
