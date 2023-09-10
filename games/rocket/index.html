@@ -36,9 +36,9 @@
       const buildUrl = "Build";
       const loaderUrl = buildUrl + "/rocket.loader.js";
       const config = {
-        dataUrl: buildUrl + "/rocket.data.gz",
-        frameworkUrl: buildUrl + "/rocket.framework.js.gz",
-        codeUrl: buildUrl + "/rocket.wasm.gz",
+        dataUrl: buildUrl + "/rocket.data",
+        frameworkUrl: buildUrl + "/rocket.framework.js",
+        codeUrl: buildUrl + "/rocket.wasm",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "DefaultCompany",
         productName: "Aeroplane",
@@ -83,7 +83,6 @@
           progressBarFull.style.width = `${100 * progress}%`;
         }).then((unityInstance) => {
             loadingCover.style.display = "none";
-
             const token = localStorage.getItem('token');
             if (token)
             {
@@ -92,12 +91,13 @@
                 axios.get("https://gameportalapi.onrender.com/user/get/"+decoded_token.userId,
                     {headers: { authorization: `Bearer ${token}` }})
                     .then(response => {
-                      
+                      console.log(JSON.stringify(response.data));
+
                       var uid = response.data.id;
                       var username = response.data.username;
                       var credit = response.data.credit;
 
-                      unityInstance.SendMessage('GameManager', 'GetUserInfo', uid, username, credit);
+                      gameInstance.SendMessage('GameManager', 'GetUserInfo', uid, username, credit);
                     })
                     .catch(error => {
                         console.log(error);
