@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Rocket</title>
+    <title>Aeroplane</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -92,7 +92,7 @@
                     {headers: { authorization: `Bearer ${token}` }})
                     .then(response => {
                         var data = `${decoded_token.userId}, ${response.data.username}, ${response.data.credit}`;
-
+                        console.log(data);
                         unityInstance.SendMessage('GameManager', 'GetUserInfo', data);
                     })
                     .catch(error => {
