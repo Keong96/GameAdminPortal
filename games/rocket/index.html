@@ -101,7 +101,7 @@
       {
           var decoded_token = jwt_decode(token);
           
-          axios.get("https://gameportalapi.onrender.com/user/get/"+decoded_token.userId, {},
+          axios.get("https://gameportalapi.onrender.com/user/get/"+decoded_token.userId,
           {
             headers: {
               Authorization: `Bearer ${token}`
