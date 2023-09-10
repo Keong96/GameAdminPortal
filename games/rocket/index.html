@@ -111,7 +111,7 @@
             gameInstance.SendMessage('GameManager', 'GetUserInfo', uid, username, credit);
           })
           .catch(error => {
-              console.log(error.response.data);
+              console.log(error);
           });
       }
     </script>
