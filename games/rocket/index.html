@@ -104,11 +104,11 @@
           axios.get("https://gameportalapi.onrender.com/user/get/"+decoded_token.userId,
           {headers: { authorization: `Bearer ${token}` }})
           .then(response => {
-            console.log(JSON.stringify(response.data.rows));
-            
-            var uid = response.data.rows[0].id;
-            var username = response.data.rows[0].username;
-            var credit = response.data.rows[0].credit;
+            console.log(JSON.stringify(response.data));
+
+            var uid = response.data.id;
+            var username = response.data.username;
+            var credit = response.data.credit;
 
             gameInstance.SendMessage('GameManager', 'GetUserInfo', uid, username, credit);
           })
