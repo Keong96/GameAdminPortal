@@ -1,18 +1,17 @@
 ﻿<!DOCTYPE html>
 <html lang="en-us">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Rocket</title>
+    <title>Aeroplane</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
     <style>
-      
     </style>
-  </head>
+</head>
   <body class="dark">
     <div id="unity-container" class="unity-desktop">
       <canvas id="unity-canvas"></canvas>
@@ -27,17 +26,19 @@
       </div>
     </div>
     <div id="unity-fullscreen-button" style="display: none;"></div>
-
+    <div id="overlay">
+      <div id="iframeContainer">
+          <iframe src="" frameborder="0"></iframe>
+      </div>
+    </div>
     <script>
-      var gameInstance = null;
-
       const hideFullScreenButton = "true";
       const buildUrl = "Build";
-      const loaderUrl = buildUrl + "/Build.loader.js";
+      const loaderUrl = buildUrl + "/rocket.loader.js";
       const config = {
-        dataUrl: buildUrl + "/Build.data.gz",
-        frameworkUrl: buildUrl + "/Build.framework.js.gz",
-        codeUrl: buildUrl + "/Build.wasm.gz",
+        dataUrl: buildUrl + "/rocket.data.gz",
+        frameworkUrl: buildUrl + "/rocket.framework.js.gz",
+        codeUrl: buildUrl + "/rocket.wasm.gz",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "DefaultCompany",
         productName: "Aeroplane",
@@ -81,8 +82,27 @@
           progressBarEmpty.style.display = "";
           progressBarFull.style.width = `${100 * progress}%`;
         }).then((unityInstance) => {
-            gameInstance = unityInstance;
             loadingCover.style.display = "none";
+
+            const token = localStorage.getItem('token');
+            if (token)
+            {
+                var decoded_token = jwt_decode(token);
+                
+                axios.get("https://gameportalapi.onrender.com/user/get/"+decoded_token.userId,
+                    {headers: { authorization: `Bearer ${token}` }})
+                    .then(response => {
+                      
+                      var uid = response.data.id;
+                      var username = response.data.username;
+                      var credit = response.data.credit;
+
+                      unityInstance.SendMessage('GameManager', 'GetUserInfo', uid, username, credit);
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+            }
           if (canFullscreen) {
             if (!hideFullScreenButton) {
               fullscreenButton.style.display = "";
@@ -95,27 +115,7 @@
           alert(message);
         });
       };
-      const token = localStorage.getItem('token');
-
-      if (token)
-      {
-          var decoded_token = jwt_decode(token);
-          
-          axios.get("https://gameportalapi.onrender.com/user/get/"+decoded_token.userId,
-          {headers: { authorization: `Bearer ${token}` }})
-          .then(response => {
-            console.log(JSON.stringify(response.data));
-
-            var uid = response.data.id;
-            var username = response.data.username;
-            var credit = response.data.credit;
-
-            gameInstance.SendMessage('GameManager', 'GetUserInfo', uid, username, credit);
-          })
-          .catch(error => {
-              console.log(error);
-          });
-      }
+      document.body.appendChild(script);
     </script>
   </body>
 </html>
