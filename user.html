@@ -37,6 +37,9 @@
                     <li class="nav-item active">
                       <span id="welcome_message"></span>
                     </li>
+                    <li class="nav-item active">
+                        <span id="credit"></span>
+                      </li>
                     <li class="nav-item">
                         <span id="admin_panel"></span>
                       </li>
@@ -111,6 +114,7 @@
 </body>
 <script>
     const welcome_message = document.getElementById("welcome_message");
+    const credit = document.getElementById("credit");
     const admin_panel = document.getElementById("admin_panel");
     const token = localStorage.getItem('token');
     if (token)
@@ -125,6 +129,15 @@
         }
 
         welcome_message.innerHTML = '<a class="nav-link" href="javascript:void(0)">'+decoded_token.username+'</a>';
+        
+        axios.get("https://gameportalapi.onrender.com/user/get/"+decoded_token.userId,
+        {headers: { authorization: `Bearer ${token}` }})
+            .then(response => {
+                credit.innerHTML = '<a class="nav-link" href="javascript:void(0)">'+response.data.credit+'</a>';
+            })
+            .catch(error => {
+                console.log(error);
+        });
 
         if(decoded_token.user_type == 0 || decoded_token.user_type == 1)
             admin_panel.innerHTML = '<a class="nav-link" href="admin.html">Admin Panel</a>';
