@@ -83,6 +83,13 @@
             {
                 var decoded_token = jwt_decode(token);
                 
+                if (decoded_token.exp < Math.floor(Date.now()/1000))
+                {
+                    window.stop();
+                    localStorage.removeItem("token");
+                    window.location.href = 'login.html';
+                }
+
                 axios.get("https://gameportalapi.onrender.com/user/get/"+decoded_token.userId,
                     {headers: { authorization: `Bearer ${token}` }})
                     .then(response => {
@@ -93,6 +100,11 @@
                     .catch(error => {
                         console.log(error);
                     });
+            }
+            else
+            {
+              window.stop();
+              window.location.href = 'login.html';
             }
           if (canFullscreen) {
             if (!hideFullScreenButton) {
