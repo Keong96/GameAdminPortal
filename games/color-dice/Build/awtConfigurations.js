@@ -18,7 +18,7 @@ var minAspectRatioWidth = 1;
 var minAspectRatioHeight = 1;
 
 // Fixed Aspect Ratio
-var fixedAspectRatioWidth = 6;
+var fixedAspectRatioWidth = 9;
 var fixedAspectRatioHeight = 16;
 
 /////////////////////////////////////////////////////////////////////////
