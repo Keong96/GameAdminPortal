@@ -60,7 +60,7 @@
               </nav>
         </div>
         <div id="dashboard_content">
-            <iframe src="rocket_setting.html" name="iframe" height="600px" width="100%"></iframe>
+            <iframe src="" id="iframe" name="iframe" height="600px" width="100%"></iframe>
         </div>
     </div>
 </body>
@@ -69,6 +69,8 @@
     const welcome_message = document.getElementById("welcome_message");
     const user_panel = document.getElementById("user_panel");
     const token = localStorage.getItem('token');
+    const iframe = document.getElementById("iframe");
+    const url_params = new URLSearchParams(queryString);
 
     if (token)
     {
@@ -95,6 +97,14 @@
     {
         window.stop();
         window.location.href = 'login.html';
+    }
+
+    switch(url_params.get('game_type'))
+    {
+        case "rocket":
+            break;
+        case "color-dice":
+            break;
     }
 
     function Logout()
