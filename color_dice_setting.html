@@ -11,8 +11,9 @@
 </body>
 <script>
     const container = document.getElementById("container");
-
-    axios.get("https://gameportalapi.onrender.com/colordice/get"+decoded_token.userId,
+    const token = localStorage.getItem('token');
+    
+    axios.get("https://gameportalapi.onrender.com/colordice/get",
         {headers: { authorization: `Bearer ${token}` }})
             .then(response => {
 
