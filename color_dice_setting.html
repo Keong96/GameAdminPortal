@@ -7,7 +7,11 @@
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <style>
-    
+
+.table tr {
+    text-align: center;
+} 
+
 .table td {
     text-align: center;
 } 
@@ -36,7 +40,7 @@
                         switch(response.data[i]['winnum'])
                         {
                             case "0":
-                                content += "<td style='color:orange'>Orange</td>";
+                                content += "<td style='color:orange'>Orange <i class='fa fa-square'></i> </td>";
                                 break;
                             case "1":
                                 content += "<td style='color:purple'>Purple</td>";
