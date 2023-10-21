@@ -70,7 +70,7 @@
     const user_panel = document.getElementById("user_panel");
     const token = localStorage.getItem('token');
     const iframe = document.getElementById("iframe");
-    const url_params = new URLSearchParams(queryString);
+    const url_params = new URLSearchParams(window.location.search);
 
     if (token)
     {
