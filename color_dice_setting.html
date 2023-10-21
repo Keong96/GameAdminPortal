@@ -21,12 +21,12 @@
                 var content = '<table class="table table-bordered align-middle table-hover table-sm">';
                     content += '<thead><tr><th scope="col">ID</th><th scope="col">Wining Color</th><th scope="col">DateTime</th><th scope="col">Total In</th><th scope="col">Total Out</th></thead>';
                     
-                    for(i = 0; i < response.data.data.length; i++)
+                    for(i = 0; i < response.data.length; i++)
                     {
                         content += "<tr>";
-                        content += "<td>"+response.data.data[i]['id']+"</td>";
+                        content += "<td>"+response.data[i]['id']+"</td>";
                         
-                        switch(response.data.data[i]['winnum'])
+                        switch(response.data[i]['winnum'])
                         {
                             case 0:
                                 content += "<td style='color:orange'>Orange</td>";
@@ -50,9 +50,9 @@
                                 content += "<td>Black</td>";
                                 break;
                         }
-                        content += "<td>"+response.data.data[i]['created_on']+"</td>";
-                        content += "<td>"+response.data.data[i]['total_in']+"</td>";
-                        content += "<td>"+response.data.data[i]['total_out']+"</td>";
+                        content += "<td>"+response.data[i]['created_on']+"</td>";
+                        content += "<td>"+response.data[i]['total_in']+"</td>";
+                        content += "<td>"+response.data[i]['total_out']+"</td>";
                         content += "</tr>";
                     }
 
