@@ -410,7 +410,11 @@
 
                 var url = "https://api.globalaffiliate.vip/process.aspx?process="+process+"&username="+username+"&i="+i;
 
-                axios.get(url)
+                axios.get(url, {
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                        }
+                    })
                     .then(response => {
                         var data = `${decoded_token.userId}, ${username}, ${response.data.mini}`;
                         console.log("data = "+data);
