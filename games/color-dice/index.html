@@ -33,6 +33,8 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/md5.js"></script>
+
 </head>
 <body style="background-color: #232323; text-align: center;">
 
@@ -403,7 +405,7 @@
                 var secretKey = "***!@#!**huas998kaS9*Y*&Y";
                 var process = "walletbalance";
                 var username = "test002";
-                var i = md5(process + username + secretKey);
+                var i = CryptoJS.MD5(process + username + secretKey).toString();;
 
                 var url = "https://api.globalaffiliate.vip/process.aspx?process="+process+"&username="+username+"&i="+i;
 
