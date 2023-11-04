@@ -33,6 +33,9 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/core.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/md5.js"></script>
+
 </head>
 <body style="background-color: #232323; text-align: center;">
 
@@ -376,6 +379,7 @@
             document.querySelector("#watchVideoButton").style.display = "none";
             document.querySelector("#playPongButton").style.display = "none";
 
+           ////////////////////////////////////////////////////////////////////////////////
             const token = localStorage.getItem('token');
             if (token)
             {
@@ -385,14 +389,35 @@
                 {
                     window.stop();
                     localStorage.removeItem("token");
-                    window.location.href = 'https://gameportal.onrender.com/login.html';
+                    window.location.href = './login.html';
                 }
 
-                axios.get("https://gameportalapi.onrender.com/user/get/"+decoded_token.userId,
-                    {headers: { authorization: `Bearer ${token}` }})
-                    .then(response => {
-                        var data = `${decoded_token.userId}, ${response.data.username}, ${response.data.credit}`;
+                // axios.get("https://gameportalapi.onrender.com/user/get/"+decoded_token.userId,
+                //     {headers: { authorization: `Bearer ${token}` }})
+                //     .then(response => {
+                        
+                //         var data = `${decoded_token.userId}, ${response.data.username}, ${response.data.credit}`;
+                //         unityInstance.SendMessage('GameManager', 'GetUserInfo', data);
+                //     })
+                //     .catch(error => {
+                //         console.log(error);
+                //     });
 
+                var secretKey = "***!@#!**huas998kaS9*Y*&Y";
+                var process = "walletbalance";
+                var username = "test002";
+                var i = CryptoJS.MD5(process + username + secretKey).toString();;
+
+                var url = "https://api.globalaffiliate.vip/process.aspx?process="+process+"&username="+username+"&i="+i;
+
+                axios.get(url, {
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                        }
+                    })
+                    .then(response => {
+                        var data = `${decoded_token.userId}, ${username}, ${response.data.mini}`;
+                        console.log("data = "+data);
                         unityInstance.SendMessage('GameManager', 'GetUserInfo', data);
                     })
                     .catch(error => {
@@ -402,8 +427,9 @@
             else
             {
                 window.stop();
-                window.location.href = './login.html';
+                window.location.href = 'login.html';
             }
+            ////////////////////////////////////////////////////////////////////////////////
 
         }).catch((message) => {
             alert(message);
