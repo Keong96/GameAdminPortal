@@ -2319,6 +2319,7 @@ function unityFramework(Module) {
     function _WebGLInputMobileOnFocusOut(id, focusout) {
         document.body.addEventListener("focusout", function() {
             document.body.removeEventListener("focusout", arguments.callee);
+            if(typeof Runtime == undefined) return;
             Runtime.dynCall("vi", focusout, [id])
         })
     }
@@ -2327,6 +2328,7 @@ function unityFramework(Module) {
         var id = instances.push(null) - 1;
         document.body.addEventListener("touchend", function() {
             document.body.removeEventListener("touchend", arguments.callee);
+            if(typeof Runtime == undefined) return;
             Runtime.dynCall("vi", touchend, [id])
         });
         return id
@@ -2335,6 +2337,7 @@ function unityFramework(Module) {
     function _WebGLInputOnBlur(id, cb) {
         var input = instances[id];
         input.onblur = function() {
+        	if(typeof Runtime == undefined) return;
             Runtime.dynCall("vi", cb, [id])
         }
     }
@@ -2350,6 +2353,7 @@ function unityFramework(Module) {
     function _WebGLInputOnFocus(id, cb) {
         var input = instances[id];
         input.onfocus = function() {
+        	if(typeof Runtime == undefined) return;
             Runtime.dynCall("vi", cb, [id])
         }
     }
@@ -2466,14 +2470,14 @@ function unityFramework(Module) {
 
     function _WebGLWindowOnBlur(cb) {
         window.addEventListener("blur", function() {
-            if(typeof Runtime == undefined) return
+            if(typeof Runtime == undefined) return;
                 Runtime.dynCall("v", cb, [])
         })
     }
 
     function _WebGLWindowOnFocus(cb) {
         window.addEventListener("focus", function() {
-            if(typeof Runtime == undefined) return
+            if(typeof Runtime == undefined) return;
                 Runtime.dynCall("v", cb, [])
         })
     }
