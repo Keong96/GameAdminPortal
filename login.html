@@ -41,7 +41,7 @@
           <input id="sign-up-username" type="text" name="sign-up-username" placeholder="Username" required="required" />
           <input id="sign-up-password" type="password" name="password" placeholder="Password" required="required" />
           <input id="confirm-password" type="password" name="confirm-password" placeholder="Confirm Password" required="required" />
-          <button id="register-button" type="button" class="btn btn-primary btn-block btn-large">Register</button>
+          <button id="register-button" type="button" class="btn btn-primary btn-block btn-large" disabled>Register</button>
         </form>
       </div>
     </div>
@@ -121,25 +121,25 @@
     const password = document.getElementById("sign-in-password").value;
 
         loginButton.innerHTML = '<i class="fa fa-spinner fa-spin"></i>';
-
-        axios.post("https://gameportalapi.onrender.com/user/login", {
-            username: username,
-            password: password
-        },
-        {
-          headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Content-Type': 'application/json',
-          }}
-        )
-        .then(response => {
-            localStorage.setItem("token", response.data.data.token);
-            window.location.href = "user.html";
-        })
-        .catch(error => {
-            console.log(error.response.data);
-            showModal(error.response.data)
-        });
+        window.location.href = "user.html";
+        // axios.post("https://gameportalapi.onrender.com/user/login", {
+        //     username: username,
+        //     password: password
+        // },
+        // {
+        //   headers: {
+        //     'Access-Control-Allow-Origin': '*',
+        //     'Content-Type': 'application/json',
+        //   }}
+        // )
+        // .then(response => {
+        //     localStorage.setItem("token", response.data.data.token);
+        //     window.location.href = "user.html";
+        // })
+        // .catch(error => {
+        //     console.log(error.response.data);
+        //     showModal(error.response.data)
+        // });
     });
 
     registerButton.addEventListener("click", () => {
